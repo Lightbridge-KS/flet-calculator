@@ -1,0 +1,56 @@
+image:
+- Visual Studio 2019
+- macOS
+
+skip_branch_with_pr: true
+stack: python 3.11
+
+environment:
+  GITHUB_TOKEN:
+    secure: cq5sCIvjUPBY6V+SOp37WeiqdiECzfeLyz2bKC1LtYNZGFzM+Md1ruJSHAsOtgjKVGI8dkAcrTByKilyiN4RdrnMKhoPk7TEfXpbOd6mJhQWOBlc0QQoGmz9RQfvNw4h
+
+install:
+- pip install -r requirements.txt
+
+build_script:
+- flet pack main.py --name calculator --icon assets/icon.png --product-name calculator --product-version "0.0.1" --copyright "Copyright (c) 2022 YourCompany Inc."
+
+test: off
+
+# Publish artifacts to GitHub Releases on "tag" builds
+deploy:
+  provider: GitHub
+  auth_token: $(GITHUB_TOKEN)
+  on:
+    APPVEYOR_REPO_TAG: true
+
+#
+#   Windows package
+# 
+for:
+-
+  matrix:
+    only:
+    - image: Visual Studio 2019
+
+  after_build:
+  - 7z a calculator-windows.zip %CD%\dist\*.exe
+
+  artifacts:
+  - path: calculator-windows.zip
+
+#
+#   macOS package
+# 
+-
+  matrix:
+    only:
+    - image: macOS
+
+  after_build:
+  - tar -czvf calculator-macos.tar.gz -C dist calculator.app
+
+  artifacts:
+  - path: calculator-macos.tar.gz
+
+
