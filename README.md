@@ -9,4 +9,7 @@ To run the app:
 flet run
 ```
 
-- The web app version currently deployed via [Netlify](https://flet-calculator-lightbridge.netlify.app/)
+## Deploy
+
+- **Web App** currently deployed via [Netlify](https://flet-calculator-lightbridge.netlify.app/)
+- **Desktop App** in the [release section](https://github.com/Lightbridge-KS/flet-calculator/releases) build by appveyor
