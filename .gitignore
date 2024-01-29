@@ -12,7 +12,7 @@ __pycache__/
 ## Ignore everything in build directory
 build/*
 ## But do not ignore build/web
-!build/web/
+# !build/web/
 
 
 # Distribution / packaging
